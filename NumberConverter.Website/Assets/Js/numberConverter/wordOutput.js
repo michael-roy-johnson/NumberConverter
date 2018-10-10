@@ -3,15 +3,11 @@
 class WordOutput extends React.Component {
     render() {
         return (
-            <div>
-                <Output />
+            <div className="number-converter__output">
+                {this.props.words}
             </div>
         )
     }
-}
-
-const Output = (props) => {
-    <span />
 }
 
 export default WordOutput;

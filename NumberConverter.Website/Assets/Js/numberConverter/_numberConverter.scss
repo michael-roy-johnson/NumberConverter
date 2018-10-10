@@ -1,0 +1,37 @@
+﻿.number-converter {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 14px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    &__title {
+        text-align: center;
+    }
+
+    &__input-container {
+        background-color: $light-red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+    }
+
+    &__input {
+    }
+
+    &__submit {
+        margin-left: 12px;
+    }
+
+    &__output {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+        color: $white;
+        background-color: $light-blue;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}

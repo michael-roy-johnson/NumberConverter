@@ -1,22 +1,38 @@
 {
     "name": "NumberConverter.Website",
     "scripts": {
-        "build": "webpack"
+        "build": "webpack",
+        "build:watch": "webpack --watch"
     },
     "private": true,
     "version": "0.0.0",
     "devDependencies": {
-        "css-loader": "1.0.0", 
-        "extract-text-webpack-plugin": "3.0.2",
-        "file-loader": "2.0.0",
-        "html-webpack-plugin": "3.2.0",
-        "jquery": "3.3.1",
-        "react": "15.6.1",
-        "react-dom": "15.6.1",
-        "sass-loader": "7.1.0",
-        "style-loader": "0.23.0",
-        "url-loader": "1.1.1",
-        "webpack": "4.20.2",
-        "webpack-cli": "3.1.2"
+        "aspnet-webpack": "^3.0.0",
+        "aspnet-webpack-react": "^3.0.0",
+        "webpack-dev-middleware": "^3.4.0",
+        "webpack-hot-middleware": "^2.24.3",
+        "react-hot-loader": "^4.3.11",
+        "@babel/core": "^7.1.2",
+        "@babel/preset-env": "^7.1.0",
+        "@babel/preset-react": "^7.0.0",
+        "babel-loader": "^8.0.4",
+        "browser-sync": "^2.24.7",
+        "browser-sync-webpack-plugin": "^2.2.2",
+        "connect": "^3.6.6",
+        "clean-webpack-plugin": "^0.1.19",
+        "css-loader": "^1.0.0",
+        "html-webpack-plugin": "^3.2.0",
+        "mini-css-extract-plugin": "^0.4.3",
+        "node-sass": "^4.9.3",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.0",
+        "webpack": "^4.20.2",
+        "webpack-cli": "^3.1.1",
+        "webpack-merge": "^4.1.4"
+    },
+    "dependencies": {
+        "react": "^16.5.2",
+        "react-dom": "16.5.2",
+        "axios": "^0.18.0"
     }
 }
