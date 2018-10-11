@@ -37,12 +37,6 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            new BrowserSyncPlugin(
-                {
-                    host: 'localhost',
-                    port: 3000,
-                    server: { baseDir: ['wwwroot'] }
-                }),
              new MiniCssExtractPlugin({
                 filename: 'style.css'
             }),
