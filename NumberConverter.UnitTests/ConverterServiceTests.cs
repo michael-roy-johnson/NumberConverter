@@ -25,7 +25,7 @@ namespace NumberConverter.Tests
         }
 
         [Test]
-        public void Two_Digit_Number_Returns_Correct_Result()
+        public void NumberToWords_ReturnsCorrect_Result_ForTwoDigitNumber()
         {
             var words = _converterService.NumberToWords(99);
 
@@ -33,7 +33,7 @@ namespace NumberConverter.Tests
         }
 
         [Test]
-        public void Three_Digit_Number_Returns_Correct_Result()
+        public void NumberToWords_ReturnsCorrect_Result_ForThreeDigitNumber()
         {
             var words = _converterService.NumberToWords(321);
 
@@ -41,7 +41,7 @@ namespace NumberConverter.Tests
         }
 
         [Test]
-        public void Four_Digit_Number_Returns_Correct_Result()
+        public void NumberToWords_ReturnsCorrect_Result_ForFourDigitNumber()
         {
             var words = _converterService.NumberToWords(9876);
 
@@ -49,27 +49,11 @@ namespace NumberConverter.Tests
         }
 
         [Test]
-        public void Seven_Digit_Number_Returns_Correct_Result()
+        public void NumberToWords_ReturnsCorrect_Result_ForSevenDigitNumber()
         {
             var words = _converterService.NumberToWords(5555555);
 
             Assert.AreEqual("FIVE MILLION, FIVE HUNDRED AND FIFTY FIVE THOUSAND, FIVE HUNDRED AND FIFTY FIVE DOLLARS", words);
-        }
-
-        [Test]
-        public void Seven_Digit_Number_With_Zeroes_Returns_Correct_Result()
-        {
-            var words = _converterService.NumberToWords(1001001);
-
-            Assert.AreEqual("ONE MILLION, ONE THOUSAND AND ONE DOLLARS", words);
-        }
-
-        [Test]
-        public void Number_With_All_Numbers_Returns_Correct_Result()
-        {
-            var words = _converterService.NumberToWords(123456789);
-
-            Assert.AreEqual("ONE HUNDRED AND TWENTY THREE MILLION, FOUR HUNDRED AND FIFTY SIX THOUSAND, SEVEN HUNDRED AND EIGHTY NINE DOLLARS", words);
         }
 
         [Test]
@@ -78,6 +62,14 @@ namespace NumberConverter.Tests
             var words = _converterService.NumberToWords(909000);
 
             Assert.AreEqual("NINE HUNDRED AND NINE THOUSAND DOLLARS", words);
+        }
+
+        [Test]
+        public void NumberToWords_ReturnsCorrectResult_ForNumberWithAllDigits()
+        {
+            var words = _converterService.NumberToWords(123456789);
+
+            Assert.AreEqual("ONE HUNDRED AND TWENTY THREE MILLION, FOUR HUNDRED AND FIFTY SIX THOUSAND, SEVEN HUNDRED AND EIGHTY NINE DOLLARS", words);
         }
 
         [Test]
@@ -113,7 +105,7 @@ namespace NumberConverter.Tests
         }
 
         [Test]
-        public void NumberToWords_OneDollar_ReturnsSingularText()
+        public void NumberToWords_ReturnsSingularText_ForOneDollar()
         {
             var words = _converterService.NumberToWords(1);
 
@@ -121,7 +113,7 @@ namespace NumberConverter.Tests
         }
 
         [Test]
-        public void NumberToWords_OneCent_ReturnsSingularText()
+        public void NumberToWords_ReturnsSingularText_ForOneCent()
         {
             var words = _converterService.NumberToWords(0.01m);
 
@@ -129,11 +121,23 @@ namespace NumberConverter.Tests
         }
 
         [Test]
-        public void Zero_Number_Returns_Correct_Result()
+        public void NumberToWords_ReturnsCorrectResult_ForZero()
         {
             var words = _converterService.NumberToWords(0);
 
             Assert.AreEqual("ZERO", words);
+        }
+
+        [Test]
+        public void NumberToWords_ThrowsArgumentException_ForNumberGreaterThanRange()
+        {
+            Assert.Throws<ArgumentException>(() => _converterService.NumberToWords(9999999999));
+        }
+
+        [Test]
+        public void NumberToWords_ThrowsArgumentException_ForNumberLessThanRange()
+        {
+            Assert.Throws<ArgumentException>(() => _converterService.NumberToWords(-0.01m));
         }
     }
 }
