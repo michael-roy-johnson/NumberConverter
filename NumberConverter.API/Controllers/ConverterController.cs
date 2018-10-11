@@ -16,7 +16,7 @@ namespace NumberConverter.API.Controllers
 
         // GET: api/converter/{number}
         [HttpGet("{number}")]
-        public string Get(int number)
+        public string Get(decimal number)
         {
             return _converterService.NumberToWords(number);
         }

@@ -2,6 +2,6 @@
 {
     public interface IConverterService
     {
-        string NumberToWords(int number);
+        string NumberToWords(decimal number);
     }
 }

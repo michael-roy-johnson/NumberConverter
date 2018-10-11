@@ -7,27 +7,82 @@ namespace NumberConverter.Services
 {
     public class ConverterService : IConverterService
     {
-        private readonly IWordsRepository _wordRespository;
+        private IWordsRepository _wordRespository;
         private IDictionary<int, string> _wordsDictionary;
         private string _words = String.Empty;
+        private const decimal MAX_VALUE = 999999999.99m;
+        private const decimal MIN_VALUE = 0;
 
         public ConverterService(IWordsRepository wordRespository)
         {
             _wordRespository = wordRespository;
         }
 
-        public string NumberToWords(int number)
+        public string NumberToWords(decimal number)
         {
+            if (number > MAX_VALUE || number < MIN_VALUE)
+            {
+                throw new ArgumentException($"Number cannot be greater than {MAX_VALUE.ToString()} or less than {MIN_VALUE.ToString()}.");
+            }
+
             var indexes = new List<int> { 0 };
 
             _wordsDictionary = _wordRespository.GetWordsDictionary();
 
-            if (number > 0)
+            return BuildWordsFromNumber(number).ToUpper();
+        }
+
+        private string BuildWordsFromNumber(decimal number)
+        {
+            var dollars = GetDollars(number);
+            var cents = GetCents(number);
+            var dollarsWords = String.Empty;
+            var centsWords = String.Empty;
+            var words = String.Empty;
+
+            if (dollars <= 0 && cents <= 0)
             {
-                indexes = GetIndexes(number);
+                return _wordsDictionary[0];
             }
 
-            return BuildWordsFromIndexes(indexes).ToUpper();
+            if (dollars > 0)
+            {
+                var dollarsIndexes = GetIndexes(dollars);
+                dollarsWords = BuildWordsFromIndexes(dollarsIndexes);
+
+                dollarsWords += dollars == 1 ?
+                    " dollar" :
+                    " dollars";
+                centsWords = cents > 0 ?
+                    " and " :
+                    String.Empty;
+            }
+
+            if (cents > 0)
+            {
+                var centsIndexes = GetIndexes(cents);
+                centsWords += BuildWordsFromIndexes(centsIndexes);
+
+                centsWords += cents == 1 ?
+                    " cent" :
+                    " cents";
+            }
+
+            return dollarsWords + centsWords;
+        }
+
+        private int GetDollars(decimal number)
+        {
+            return (int)number;
+        }
+
+        private int GetCents(decimal number)
+        {
+            var dollars = GetDollars(number);
+            var roundedNumber = Math.Round(number, 2);
+            var cents = (roundedNumber - dollars) * 100;
+
+            return (int)cents;
         }
 
         private string BuildWordsFromIndexes(List<int> indexes, int currentPosition = 0)
@@ -43,14 +98,13 @@ namespace NumberConverter.Services
             var nextPosition = currentPosition + 1;
             var delimiter = GenerateDelimiter(indexes[currentPosition], indexes[nextPosition], indexes.ElementAtOrDefault(nextPosition+1));
 
-
             return currentWord + delimiter + BuildWordsFromIndexes(indexes, nextPosition);
         }
 
         private string GenerateDelimiter(int leftIndex, int centerIndex, int? rightIndex = null) {
             if (leftIndex >= 100 && centerIndex < 100)
             {
-                if (rightIndex >= 100)
+                if (rightIndex < leftIndex && rightIndex >= 100)
                 {
                     return ", ";
                 }
@@ -60,6 +114,11 @@ namespace NumberConverter.Services
 
             if (leftIndex > 100 && centerIndex > 100)
             {
+                if (rightIndex < 100)
+                {
+                    return " and ";
+                }
+
                 return ", ";
             }
 

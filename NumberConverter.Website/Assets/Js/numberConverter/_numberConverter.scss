@@ -9,29 +9,37 @@
         text-align: center;
     }
 
-    &__input-container {
+    &__form-container {
         background-color: $light-red;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 80px;
+        min-height: 100px;
+    }
+
+    &__input-container {
+        width: 200px;
+        text-align: center;
     }
 
     &__input {
+        width: 100%;
+        margin-bottom: 4px;
     }
 
     &__submit {
-        margin-left: 12px;
+        width: 100px;
     }
 
-    &__output {
+    &__output-container {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        height: 80px;
+        text-align:center;
+        min-height: 50px;
         color: $white;
         background-color: $light-blue;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 15px;
     }
+
 }
